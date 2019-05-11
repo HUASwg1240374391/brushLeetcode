@@ -2,9 +2,7 @@
 <font color=gray>desc:<br></font>
 <font color=gray size=3>
 实现 strStr() 函数。
-
 给定一个 haystack 字符串和一个 needle 字符串，在 haystack 字符串中找出 needle 字符串出现的第一个位置 (从 0 开始)。如果不存在，则返回 -1。
-
 </font>
 <font color=skyblue>示例 1:</font>
 <font >
@@ -17,9 +15,10 @@
 输出: -1
 <font color=black size=3>
 思路：</font><font color=gray size=2>
-KMP算法 或者直接使用indexOf
-以下解答AC 62/74 待完善 
+KMP 算法 或者直接使用 indexOf
+以下解答 AC 62/74 待完善
 </font>
+
 ```javascript
 var strStr = function(haystack, needle) {
   if (!needle || haystack === needle) {
@@ -52,9 +51,10 @@ var strStr = function(haystack, needle) {
   return -1
 }
 let result = strStr('mississippi', 'issip')
-console.log(result) 
+console.log(result)
 // 预期：4
 // 输出：-1
+```
 
 ```
 
