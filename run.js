@@ -1,23 +1,24 @@
-const multiply = function(num1, num2) {
-  if (!+num1 || !+num2) return '0'
+var subsets = function(nums) {
+  let len = nums.length
+  if (len === 0) return [[]]
 
-  const len1 = num1.length - 1
-  const len2 = num2.length - 1
-
-  const mulRes = new Array(num1.length + num2.length).fill(0)
-
-  for (let i = len1; i >= 0; i--) {
-    for (let j = len2; j >= 0; j--) {
-      let mul = num1[i] * num2[j]
-      mul += mulRes[i + j + 1]
-      mulRes[i + j] += parseInt(mul / 10)
-      mulRes[i + j + 1] = mul % 10
-    }
+  let result = []
+  function dfs(n, descison = []) {
+    if (descison.length === n) return result.push(descison)
+    dfs(n, descison.concat(true))
+    dfs(n, descison.concat(false))
   }
 
-  while (mulRes[0] === 0) {
-    mulRes.shift()
-  }
+  dfs(len)
 
-  return mulRes.join('')
+  return result.map(arr => {
+    let tmp = []
+    arr.forEach((flag, index) => {
+      console.log(flag, index)
+      if (flag) tmp.push(nums[index])
+    })
+    return tmp
+  })
 }
+let result = subsets([1, 2, 3])
+// console.log(result)
