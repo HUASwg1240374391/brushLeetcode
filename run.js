@@ -1,14 +1,24 @@
-var deleteDuplicates = function(head) {
-  if (!head || !head.next) {
-    return head
+var mySqrt = function(x) {
+  if (!x) {
+    return 0
   }
-  let tem = head
-  while (tem && tem.next) {
-    if (tem.val === tem.next.val) {
-      tem.next = tem.next.next
-    } else {
-      tem = tem.next
+  let tem = Math.floor(0 + x) / 2
+
+  while (1) {
+    let middle = tem
+    let result = tem * tem
+    if (result >= x) {
+      if (
+        result === x ||
+        ((tem + 1) * (tem + 1) > x && (tem - 1) * (tem - 1) < x)
+      ) {
+        return tem
+      } else {
+        tem = (0 + tem) / 2
+      }
+    } else if (result < x) {
+      tem = (tem + middle) / 2
     }
   }
-  return head
 }
+console.log(mySqrt(8))
