@@ -1,54 +1,15 @@
-var threeSumClosest = function(nums, target) {
-  var min = Math.abs(nums[1] + nums[2] + nums[0] - target) //To memo the distance to target
-  var i, j, k // index
-  var num1, num2, num3
-  var result = nums[1] + nums[2] + nums[0]
+var buildTree = function(preorder, inorder) {
+  function helper(p1, p2, i1, i2) {
+    if (p1 > p2 || i1 > i2) return null // sanity check
+    var value = preorder[p1], // get the root value
+      index = inorder.indexOf(value), // get inorder position
+      nLeft = index - i1, // count nodes in left subtree
+      root = new TreeNode(value) // build the root node
+    // build the left and right subtrees recursively
+    root.left = helper(p1 + 1, p1 + nLeft, i1, index - 1)
+    root.right = helper(p1 + nLeft + 1, p2, index + 1, i2)
 
-  nums.sort(function(a, b) {
-    return a - b
-  })
-
-  for (i = 0; i < nums.length; i++) {
-    if (i > 0 && nums[i] == nums[i - 1]) continue
-    num1 = nums[i]
-    j = i + 1
-    k = nums.length - 1
-    while (j < k) {
-      while (j > i + 1 && j < k && nums[j] == nums[j - 1]) j++
-      while (k < nums.length - 1 && j < k && nums[k] == nums[k + 1]) k--
-      if (j == k) break
-
-      num2 = nums[j]
-      num3 = nums[k]
-      let temp = num1 + num2 + num3 - target
-      if (temp === 0) return target
-      if (temp > 0) {
-        k--
-      } else {
-        j++
-      }
-      if (Math.abs(temp) < min) {
-        min = Math.abs(temp)
-        result = num1 + num2 + num3
-      }
-    }
+    return root
   }
-  return result
-}
-
-var threeSumClosest = function(nums, target) {
-  nums.sort((a, b) => a - b)
-  let sum = Infinity
-  for (let i = 0; i < nums.length - 2; i++) {
-    let left = i + 1
-    let right = nums.length - 1
-    while (left < right) {
-      const s = nums[i] + nums[left] + nums[right]
-      if (Math.abs(s - target) < Math.abs(sum - target)) sum = s
-      if (s - target < 0) left += 1
-      else if (s - target > 0) right -= 1
-      else return s
-    }
-  }
-  return sum
+  return helper(0, preorder.length - 1, 0, inorder.length - 1)
 }
